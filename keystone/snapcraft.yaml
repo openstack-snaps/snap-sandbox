@@ -19,12 +19,17 @@ apps:
 
 parts:
   keystone:
-    plugin: python2
+    plugin: python
+    python-version: python2
     source: http://tarballs.openstack.org/keystone/keystone-stable-mitaka.tar.gz
-    python-packages: [pymysql]
+    python-packages:
+        - pymysql
+        - uwsgi
     constraints: https://raw.githubusercontent.com/openstack/requirements/stable/mitaka/upper-constraints.txt
-    build-packages: [python-dev, libssl-dev, libxml2-dev, libxslt1-dev, pkg-config,
-                     libffi-dev, libpq-dev, libmysqlclient-dev, graphviz, libsqlite3-dev]
+    build-packages:
+        - libssl-dev
+        - libffi-dev
+        - pkg-config
   config:
     plugin: copy
     files:
