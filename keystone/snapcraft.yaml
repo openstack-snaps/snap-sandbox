@@ -1,0 +1,34 @@
+name: keystone
+version: 0
+summary: OpenStack Identity Service (keystone)
+description: OpenStack Identity Service (keystone)
+confinement: strict
+
+apps:
+  keystone:
+    command: bin/run.sh keystone-all
+    daemon: simple
+    plugs:
+      - network-bind
+      - network
+  keystone-manage:
+    command: bin/run.sh keystone-manage
+    plugs:
+      - network
+      - network-bind
+
+parts:
+  keystone:
+    plugin: python2
+    source: http://tarballs.openstack.org/keystone/keystone-stable-mitaka.tar.gz
+    python-packages: [pymysql]
+    constraints: https://raw.githubusercontent.com/openstack/requirements/stable/mitaka/upper-constraints.txt
+    build-packages: [python-dev, libssl-dev, libxml2-dev, libxslt1-dev, pkg-config,
+                     libffi-dev, libpq-dev, libmysqlclient-dev, graphviz, libsqlite3-dev]
+  config:
+    plugin: copy
+    files:
+      ../../../parts/keystone/src/etc/*: etc/keystone/
+      etc/keystone.conf: etc/keystone/keystone.conf
+      templates/*: templates/
+      bin/run.sh: bin/run.sh
