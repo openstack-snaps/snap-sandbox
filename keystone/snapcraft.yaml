@@ -9,13 +9,12 @@ apps:
     command: bin/run.sh keystone-all
     daemon: simple
     plugs:
-      - network-bind
       - network
-  keystone-manage:
+      - network-bind
+  manage:
     command: bin/run.sh keystone-manage
     plugs:
       - network
-      - network-bind
 
 parts:
   keystone:
@@ -27,13 +26,16 @@ parts:
         - uwsgi
     constraints: https://raw.githubusercontent.com/openstack/requirements/stable/mitaka/upper-constraints.txt
     build-packages:
-        - libssl-dev
         - libffi-dev
+        - libssl-dev
         - pkg-config
+    stage-packages:
+        - apache2
+        - libapache2-mod-proxy-uwsgi
   config:
     plugin: copy
     files:
       ../../../parts/keystone/src/etc/*: etc/keystone/
-      etc/keystone.conf: etc/keystone/keystone.conf
+      config/keystone/keystone.conf: etc/keystone/keystone.conf
       templates/*: templates/
       bin/run.sh: bin/run.sh
