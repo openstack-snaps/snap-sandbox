@@ -6,13 +6,13 @@ confinement: strict
 
 apps:
   keystone:
-    command: bin/run.sh keystone-all
+    command: bin/run.sh
     daemon: simple
     plugs:
       - network
       - network-bind
   manage:
-    command: bin/run.sh keystone-manage
+    command: keystone-manage
     plugs:
       - network
 
@@ -33,9 +33,7 @@ parts:
         - apache2
         - libapache2-mod-proxy-uwsgi
   config:
-    plugin: copy
-    files:
-      ../../../parts/keystone/src/etc/*: etc/keystone/
-      config/keystone/keystone.conf: etc/keystone/keystone.conf
-      templates/*: templates/
-      bin/run.sh: bin/run.sh
+    after:
+      - keystone
+    plugin: dump
+    source: conf
