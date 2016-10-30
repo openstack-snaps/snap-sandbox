@@ -1,0 +1,53 @@
+name: nova
+version: 13.1.3snapshot
+summary: OpenStack Compute Service (nova)
+description: OpenStack Compute Service (nova)
+confinement: strict
+grade: devel
+
+apps:
+  api:
+    command: bin/run nova-api-os-compute
+    daemon: simple
+    plugs:
+      - network
+      - network-bind
+  conductor:
+    command: bin/run nova-conductor
+    daemon: simple
+    plugs:
+      - network
+      - network-bind
+  scheduler:
+    command: bin/run nova-scheduler
+    daemon: simple
+    plugs:
+      - network
+      - network-bind
+  consoleauth:
+    command: bin/run nova-consoleauth
+    daemon: simple
+    plugs:
+      - network
+      - network-bind
+  manage:
+    command: bin/run nova-manage
+    plugs:
+      - network
+parts:
+  nova:
+    plugin: python
+    python-version: python2
+    source: http://tarballs.openstack.org/nova/nova-stable-mitaka.tar.gz
+    python-packages:
+      - pymysql
+    constraints: https://raw.githubusercontent.com/openstack/requirements/stable/mitaka/upper-constraints.txt
+    build-packages:
+      - libffi-dev
+      - libssl-dev
+      - pkg-config
+  config:
+    after:
+      - nova
+    plugin: dump
+    source: conf

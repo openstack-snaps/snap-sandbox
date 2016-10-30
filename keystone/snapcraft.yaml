@@ -1,5 +1,5 @@
 name: keystone
-version: 0
+version: 9.2.1snapshot
 summary: OpenStack Identity Service (keystone)
 description: OpenStack Identity Service (keystone)
 confinement: strict

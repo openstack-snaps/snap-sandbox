@@ -1,0 +1,31 @@
+#!/bin/bash -e
+
+if [ $(id -u) -eq 0 ]; then
+    mkdir -p $SNAP_COMMON/etc/nova.conf.d
+    sed -e "s|__SNAP_COMMON__|$SNAP_COMMON|g" \
+        -e "s|__SNAP__|$SNAP|g" \
+        $SNAP/templates/nova/nova-snap.conf > \
+        $SNAP_COMMON/etc/nova.conf.d/nova-snap.conf
+
+    mkdir -p $SNAP_COMMON/etc/uwsgi
+    mkdir -p $SNAP_COMMON/run
+    for conf in $(ls -1 $SNAP/templates/uwsgi/*); do
+        conf=$(basename $conf)
+        sed -e "s|__SNAP_COMMON__|$SNAP_COMMON|g" \
+            -e "s|__SNAP__|$SNAP|g" \
+            $SNAP/templates/uwsgi/$conf > \
+            $SNAP_COMMON/etc/uwsgi/$conf
+    done
+
+    mkdir -p $SNAP_COMMON/etc/apache2/sites-enabled
+    sed -e "s|__SNAP_COMMON__|$SNAP_COMMON|g" \
+        -e "s|__SNAP__|$SNAP|g" \
+        $SNAP/templates/apache2/nova.conf > \
+        $SNAP_COMMON/etc/apache2/sites-enabled/nova.conf
+fi
+
+exec /usr/bin/env uwsgi --master --die-on-term --emperor $SNAP_COMMON/etc/uwsgi
+
+#source /etc/apache2/envvars
+#export APACHE_DIR="apache2"
+#/usr/sbin/apache2 -DFOREGROUND
