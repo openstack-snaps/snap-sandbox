@@ -13,7 +13,7 @@ apps:
       - network
       - network-bind
   manage:
-    command: keystone-manage
+    command: bin/run keystone-manage
     plugs:
       - network
 
