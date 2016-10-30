@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+if [ $(id -u) -eq 0 ]; then
+    mkdir -p $SNAP_COMMON/etc/cinder.conf.d
+    sed -e "s|__SNAP_DATA__|$SNAP_COMMON|g" \
+        -e "s|__SNAP__|$SNAP|g" \
+        $SNAP/templates/cinder/cinder-snap.conf > $SNAP_COMMON/etc/cinder.conf.d/cinder-snap.conf
+fi
+
+exec /usr/bin/env "$1" --config-file=$SNAP/etc/cinder/cinder.conf --config-dir=$SNAP_COMMON/etc/cinder.conf.d "${@:2}"
