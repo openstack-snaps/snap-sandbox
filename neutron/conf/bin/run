@@ -7,5 +7,4 @@ if [ $(id -u) -eq 0 ]; then
         $SNAP/templates/neutron/neutron-snap.conf > $SNAP_COMMON/etc/neutron.conf.d/neutron-snap.conf
 fi
 
-echo "exec /usr/bin/env $1 --config-file=$SNAP/etc/neutron/neutron-server.conf --config-dir=$SNAP_COMMON/etc/neutron.conf.d ${@:2}"
 exec /usr/bin/env "$1" --config-file=$SNAP/etc/neutron/neutron.conf --config-dir=$SNAP_COMMON/etc/neutron.conf.d "${@:2}"
