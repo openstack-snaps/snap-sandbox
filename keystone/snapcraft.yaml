@@ -25,8 +25,7 @@ parts:
     python-packages:
       - pymysql
       - uwsgi
-      - git+https://github.com/openstack-snaps/oslo.config@stable/mitaka
-    constraints: https://raw.githubusercontent.com/openstack-snaps/requirements/stable/mitaka/upper-constraints.txt
+    constraints: https://raw.githubusercontent.com/openstack/requirements/stable/mitaka/upper-constraints.txt
     build-packages:
       - libffi-dev
       - libssl-dev
