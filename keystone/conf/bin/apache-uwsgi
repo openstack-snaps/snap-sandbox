@@ -16,6 +16,12 @@ if [ $(id -u) -eq 0 ]; then
             $SNAP/templates/uwsgi/$conf > \
             $SNAP_COMMON/etc/uwsgi/$conf
     done
+
+    mkdir -p $SNAP_COMMON/etc/apache2/sites-enabled
+    sed -e "s|__SNAP_COMMON__|$SNAP_COMMON|g" \
+        -e "s|__SNAP__|$SNAP|g" \
+        $SNAP/templates/apache2/keystone.conf > \
+        $SNAP_COMMON/etc/apache2/sites-enabled/keystone.conf
 fi
 
 exec /usr/bin/env uwsgi --master --die-on-term --emperor $SNAP_COMMON/etc/uwsgi
