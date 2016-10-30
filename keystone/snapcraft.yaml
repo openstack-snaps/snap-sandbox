@@ -3,14 +3,14 @@ version: 0
 summary: OpenStack Identity Service (keystone)
 description: OpenStack Identity Service (keystone)
 confinement: strict
+grade: devel
 
 apps:
-  keystone:
-    command: bin/run.sh
+  uwsgi:
+    command: bin/apache-uwsgi
     daemon: simple
     plugs:
       - network
-      - network-bind
   manage:
     command: keystone-manage
     plugs:
