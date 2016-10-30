@@ -33,6 +33,11 @@ parts:
     stage-packages:
         - apache2
         - libapache2-mod-proxy-uwsgi
+    organize:
+      etc/keystone.conf.sample: etc/keystone/keystone.conf.sample
+      etc/policy.json: etc/keystone/policy.json
+      etc/keystone-paste.ini: etc/keystone/keystone-paste.ini
+      etc/policy.v3cloudsample.json: etc/keystone/keystone-paste.ini
   config:
     after:
       - keystone
