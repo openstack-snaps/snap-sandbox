@@ -11,6 +11,7 @@ apps:
     daemon: simple
     plugs:
       - network
+      - network-bind
   manage:
     command: keystone-manage
     plugs:
