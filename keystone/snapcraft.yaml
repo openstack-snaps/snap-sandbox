@@ -23,17 +23,17 @@ parts:
     python-version: python2
     source: http://tarballs.openstack.org/keystone/keystone-stable-mitaka.tar.gz
     python-packages:
-        - pymysql
-        - uwsgi
-        - git+https://github.com/openstack-snaps/oslo.config@stable/mitaka
+      - pymysql
+      - uwsgi
+      - git+https://github.com/openstack-snaps/oslo.config@stable/mitaka
     constraints: https://raw.githubusercontent.com/openstack-snaps/requirements/stable/mitaka/upper-constraints.txt
     build-packages:
-        - libffi-dev
-        - libssl-dev
-        - pkg-config
+      - libffi-dev
+      - libssl-dev
+      - pkg-config
     stage-packages:
-        - apache2
-        - libapache2-mod-proxy-uwsgi
+      - apache2
+      - libapache2-mod-proxy-uwsgi
     organize:
       etc/keystone.conf.sample: etc/keystone/keystone.conf.sample
       etc/policy.json: etc/keystone/policy.json
