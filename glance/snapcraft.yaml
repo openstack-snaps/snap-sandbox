@@ -1,5 +1,5 @@
 name: glance
-version: 12.0.1snapshot
+version: 13.0.0snapshot
 summary: OpenStack Image Service (glance)
 description: OpenStack Image Service (glance)
 confinement: strict
