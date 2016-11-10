@@ -7,19 +7,19 @@ grade: devel
 
 apps:
   api:
-    command: bin/run glance-api
+    command: snap-openstack glance-api
     daemon: simple
     plugs:
       - network
       - network-bind
   registry:
-    command: bin/run glance-registry
+    command: snap-openstack glance-registry
     daemon: simple
     plugs:
       - network
       - network-bind
   manage:
-    command: bin/run glance-manage
+    command: snap-openstack glance-manage
     plugs:
       - network
 
@@ -27,10 +27,11 @@ parts:
   glance:
     plugin: python
     python-version: python2
-    source: http://tarballs.openstack.org/glance/glance-stable-mitaka.tar.gz
+    source: http://tarballs.openstack.org/glance/glance-stable-newton.tar.gz
     python-packages:
       - pymysql
-    constraints: https://raw.githubusercontent.com/openstack/requirements/stable/mitaka/upper-constraints.txt
+      - git+https://github.com/openstack-snaps/snap.openstack#egg=snap.openstack
+    constraints: https://raw.githubusercontent.com/openstack/requirements/stable/newton/upper-constraints.txt
     build-packages:
       - libffi-dev
       - libssl-dev

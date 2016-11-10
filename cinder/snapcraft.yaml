@@ -1,5 +1,5 @@
 name: cinder
-version: 0
+version: 8.1.2snapshot
 summary: OpenStack Block Service (cinder)
 description: OpenStack Block Service (cinder)
 confinement: strict
